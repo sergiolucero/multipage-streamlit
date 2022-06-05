@@ -1,24 +1,10 @@
-# Copyright 2018-2022 Streamlit Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
 import inspect
 import textwrap
 import time
 import numpy as np
 from utils import show_code
-
+from lucero import pending
 
 def plotting_demo():
     progress_bar = st.sidebar.progress(0)
@@ -45,6 +31,7 @@ def plotting_demo():
 st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 st.markdown("# Plotting Demo")
 st.sidebar.header("Plotting Demo")
+st.write(pending)
 st.write(
     """This demo illustrates a combination of plotting and animation with
 Streamlit. We're generating a bunch of random numbers in a loop for around
