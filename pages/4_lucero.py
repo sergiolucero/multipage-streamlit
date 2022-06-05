@@ -1,5 +1,7 @@
 import streamlit as st
+import glob
 
-st.image('pages/Gas93.png')
-st.image('pages/IPSA.png')
-st.image('pages/Bicilascondes.png')
+st.write('Quant Portfolio')
+
+for fn in glob.glob('pages/*.png'):
+    st.image(fn)
