@@ -13,7 +13,7 @@ def run():
     )
 
     st.write("# Demos Streamlit! 👋")
-    st.write(str(pending))
+    #st.write(str(pending))
     st.sidebar.success("Elige una demo.")
 
     st.markdown(
