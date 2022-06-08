@@ -7,18 +7,19 @@ pending = ['mapabicis','gasolina','television','greenpeace','IPSA']
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="Portfolio Quant.cl",
         page_icon="👋",
+        layout="wide"
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# Demos Streamlit! 👋")
     st.write(str(pending))
-    st.sidebar.success("Select a demo above.")
+    st.sidebar.success("Elige una demo.")
 
     st.markdown(
         """
         ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
+        -  [analyze the Udacity Self-driving Car Image
           Dataset](https://github.com/streamlit/demo-self-driving)
         - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
     """
