@@ -1,0 +1,5 @@
+0. create pagelib (all references are root-based)
+1. upload interactive gas-viewer
+2. list+add interactive viz
+3. embed dialogos
+4. repeat 2
