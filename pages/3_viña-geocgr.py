@@ -20,30 +20,22 @@ def load_data():
 
     return data
 
-
-# FUNCTION FOR AIRPORT MAPS
-def map(data, lat, lon, zoom, uvdata):
+def hex(data):
+    return pdk.Layer(
+                    "HexagonLayer",
+                    data=data, get_position=["lon", "lat"],
+                    radius=100, elevation_scale=4, elevation_range=[0, 1000],
+                    pickable=True, extruded=True,
+                )
+    
+def map(data, lat, lon, zoom, coms):
     st.write(
         pdk.Deck(
             map_style="mapbox://styles/mapbox/light-v9",
             initial_view_state={"latitude": lat, "longitude": lon,
                 "zoom": zoom, "pitch": 50,
             },
-            layers=[
-                pdk.Layer(
-                    "HexagonLayer",
-                    data=data, get_position=["lon", "lat"],
-                    radius=100, elevation_scale=4, elevation_range=[0, 1000],
-                    pickable=True, extruded=True,
-                ),
-                pdk.Layer(
-                    "PolygonLayer",
-                    data=uvdata, get_position=["lon", "lat"],
-                    radius=100, elevation_scale=4,
-                    elevation_range=[0, 1000],
-                    pickable=True, extruded=True,
-                ),
-            ],
+            layers=[hex(data),hex(coms)],
         )
     )
 
@@ -59,12 +51,14 @@ def mpoint(lat, lon):
 
 data = load_data()
 uv = pd.read_json('https://elci.sitiosur.cl/unidades_vecinales/datos-vina-del-mar.php')
+coms = pd.read_json('humedales_viña.json')
 #uv.coordenadas = uv.coordenadas.apply(lambda c: [tuple(t) for t in list(set(c.split(';')))])
 uv.coordenadas = uv.coordenadas.apply(lambda c0: [(eval(xx)[0],eval(xx)[1]) for xx in set(c0.split(';'))])
+
 zoom_level = 14 
 midpoint = mpoint(data["lat"], data["lon"])
 print('MID:', midpoint)
 hour_selected = 12
-st.write('Proyectos GeoCGR comuna Viña del Mar')
+st.title('Proyectos GeoCGR comuna Viña del Mar')
 map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11, uv)
 st.write(uv)
