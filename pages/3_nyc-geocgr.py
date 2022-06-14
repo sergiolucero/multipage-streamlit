@@ -53,7 +53,7 @@ def map(data, lat, lon, zoom):
 # FILTER DATA FOR A SPECIFIC HOUR, CACHE
 @st.experimental_memo
 def filterdata(df, hour_selected):
-    return df[df["date/time"].dt.hour == hour_selected]
+    return df #df[df["date/time"].dt.hour == hour_selected]
 
 
 # CALCULATE MIDPOINT FOR GIVEN SET OF DATA
@@ -142,23 +142,21 @@ with row2_4:
     map(filterdata(data, hour_selected), newark[0], newark[1], zoom_level)
 
 # CALCULATING DATA FOR THE HISTOGRAM
-chart_data = histdata(data, hour_selected)
+#chart_data = histdata(data, hour_selected)
 
 # LAYING OUT THE HISTOGRAM SECTION
-st.write(
-    f"""**Breakdown of rides per minute between {hour_selected}:00 and {(hour_selected + 1) % 24}:00**"""
-)
+#st.write(   f"""**Breakdown of rides per minute between {hour_selected}:00 and {(hour_selected + 1) % 24}:00**""")
 
-st.altair_chart(
-    alt.Chart(chart_data)
-    .mark_area(
-        interpolate="step-after",
-    )
-    .encode(
-        x=alt.X("minute:Q", scale=alt.Scale(nice=False)),
-        y=alt.Y("pickups:Q"),
-        tooltip=["minute", "pickups"],
-    )
-    .configure_mark(opacity=0.2, color="red"),
-    use_container_width=True,
-)
+#st.altair_chart(
+#    alt.Chart(chart_data)
+#    .mark_area(
+#        interpolate="step-after",
+#    )
+#    .encode(
+#        x=alt.X("minute:Q", scale=alt.Scale(nice=False)),
+#        y=alt.Y("pickups:Q"),
+#        tooltip=["minute", "pickups"],
+#    )
+#    .configure_mark(opacity=0.2, color="red"),
+#    use_container_width=True,
+#)
