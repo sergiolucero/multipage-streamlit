@@ -10,7 +10,7 @@ st.set_page_config(layout="wide", page_title="GeoCGR+UUVV Viña del Mar", page_i
 @st.experimental_singleton
 def load_data():
     data = pd.read_csv(
-        "Viña_del_Mar_pts.csv", #"uber-raw-data-sep14.csv.gz",
+        "ViñaFinal_pts.csv", #"uber-raw-data-sep14.csv.gz",
         #nrows=100000,  # approx. 10% of data
         names=["descripción","monto","lat","lon",],  # specify names directly since they don't change
         #skiprows=1,  # don't read header since names specified directly
