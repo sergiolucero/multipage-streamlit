@@ -27,22 +27,16 @@ def map(data, lat, lon, zoom):
     st.write(
         pdk.Deck(
             map_style="mapbox://styles/mapbox/light-v9",
-            initial_view_state={
-                "latitude": lat,
-                "longitude": lon,
-                "zoom": zoom,
-                "pitch": 50,
+            initial_view_state={"latitude": lat, "longitude": lon,
+                "zoom": zoom, "pitch": 50,
             },
             layers=[
                 pdk.Layer(
                     "HexagonLayer",
-                    data=data,
-                    get_position=["lon", "lat"],
-                    radius=100,
-                    elevation_scale=4,
+                    data=data, get_position=["lon", "lat"],
+                    radius=100, elevation_scale=4,
                     elevation_range=[0, 1000],
-                    pickable=True,
-                    extruded=True,
+                    pickable=True, extruded=True,
                 ),
             ],
         )
@@ -64,5 +58,6 @@ data = load_data()
 
 zoom_level = 12
 midpoint = mpoint(data["lat"], data["lon"])
+print('MID:', midpoint)
 hour_selected = 12
 map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11)
