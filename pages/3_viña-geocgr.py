@@ -27,6 +27,16 @@ def hex(data):
                     radius=100, elevation_scale=4, elevation_range=[0, 1000],
                     pickable=True, extruded=True,
                 )
+
+def poly(data):
+    return pdk.Layer(
+                    "PolygonLayer",
+                    data=data, 
+                    opacity=0.8,
+                    stroked=False,
+                    get_polygon="geometry",
+                )
+
     
 def map(data, lat, lon, zoom, coms):
     st.write(
@@ -35,7 +45,7 @@ def map(data, lat, lon, zoom, coms):
             initial_view_state={"latitude": lat, "longitude": lon,
                 "zoom": zoom, "pitch": 50,
             },
-            layers=[hex(data),hex(coms)],
+            layers=[hex(data),poly(coms)],
         )
     )
 
@@ -53,12 +63,12 @@ data = load_data()
 uv = pd.read_json('https://elci.sitiosur.cl/unidades_vecinales/datos-vina-del-mar.php')
 coms = pd.read_json('humedales_viña.json')
 #uv.coordenadas = uv.coordenadas.apply(lambda c: [tuple(t) for t in list(set(c.split(';')))])
-uv.coordenadas = uv.coordenadas.apply(lambda c0: [(eval(xx)[0],eval(xx)[1]) for xx in set(c0.split(';'))])
+#uv.coordenadas = uv.coordenadas.apply(lambda c0: [(eval(xx)[0],eval(xx)[1]) for xx in set(c0.split(';'))])
 
 zoom_level = 14 
 midpoint = mpoint(data["lat"], data["lon"])
 print('MID:', midpoint)
 hour_selected = 12
 st.title('Proyectos GeoCGR comuna Viña del Mar')
-map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11, uv)
-st.write(uv)
+map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11, coms)
+#st.write(uv)
