@@ -6,7 +6,6 @@ import streamlit as st
 
 st.set_page_config(layout="wide", page_title="GeoCGR+UUVV Viña del Mar", page_icon=":taxi:")
 
-# LOAD DATA ONCE
 @st.experimental_singleton
 def load_data():
     data = pd.read_csv(
@@ -60,6 +59,7 @@ def mpoint(lat, lon):
 
 data = load_data()
 uv = pd.read_json('https://elci.sitiosur.cl/unidades_vecinales/datos-vina-del-mar.php')
+uv.coordenadas = uv.coordenadas.apply(lambda c: list(set(c.split(';'))))
 
 zoom_level = 14 
 midpoint = mpoint(data["lat"], data["lon"])
@@ -67,3 +67,4 @@ print('MID:', midpoint)
 hour_selected = 12
 st.write('Proyectos GeoCGR comuna Viña del Mar')
 map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11, uv)
+st.write(uv)
