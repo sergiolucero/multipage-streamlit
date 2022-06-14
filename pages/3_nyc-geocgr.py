@@ -60,7 +60,7 @@ def mpoint(lat, lon):
 data = load_data()
 uv = pd.read_json('https://elci.sitiosur.cl/unidades_vecinales/datos-vina-del-mar.php')
 #uv.coordenadas = uv.coordenadas.apply(lambda c: [tuple(t) for t in list(set(c.split(';')))])
-uv.coordenadas = uv.coordenadas.apply(lambda c0: [(eval(xx)[0],eval(xx)[1]) for xx in set(c0)])
+uv.coordenadas = uv.coordenadas.apply(lambda c0: [(eval(xx)[0],eval(xx)[1]) for xx in set(c0.split(';'))])
 zoom_level = 14 
 midpoint = mpoint(data["lat"], data["lon"])
 print('MID:', midpoint)
