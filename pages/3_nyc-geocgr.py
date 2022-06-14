@@ -23,7 +23,7 @@ def load_data():
 
 
 # FUNCTION FOR AIRPORT MAPS
-def map(data, lat, lon, zoom):
+def map(data, lat, lon, zoom, uvdata):
     st.write(
         pdk.Deck(
             map_style="mapbox://styles/mapbox/light-v9",
@@ -34,11 +34,16 @@ def map(data, lat, lon, zoom):
                 pdk.Layer(
                     "HexagonLayer",
                     data=data, get_position=["lon", "lat"],
+                    radius=100, elevation_scale=4, elevation_range=[0, 1000],
+                    pickable=True, extruded=True,
+                ),
+                pdk.Layer(
+                    "PolygonLayer",
+                    data=uvdata, get_position=["lon", "lat"],
                     radius=100, elevation_scale=4,
                     elevation_range=[0, 1000],
                     pickable=True, extruded=True,
                 ),
-                
             ],
         )
     )
@@ -54,12 +59,11 @@ def mpoint(lat, lon):
     return (-33, -71.6) #np.average(lat), np.average(lon))
 
 data = load_data()
-
-# LAYING OUT THE TOP SECTION OF THE APP
+uv = pd.read_json('https://elci.sitiosur.cl/unidades_vecinales/datos-vina-del-mar.php')
 
 zoom_level = 14 
 midpoint = mpoint(data["lat"], data["lon"])
 print('MID:', midpoint)
 hour_selected = 12
 st.write('Proyectos GeoCGR comuna Viña del Mar')
-map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11)
+map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11, uv)
