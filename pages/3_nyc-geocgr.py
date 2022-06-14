@@ -64,5 +64,5 @@ data = load_data()
 
 zoom_level = 12
 midpoint = mpoint(data["lat"], data["lon"])
-
+hour_selected = 12
 map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11)
