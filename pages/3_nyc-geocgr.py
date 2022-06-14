@@ -38,6 +38,7 @@ def map(data, lat, lon, zoom):
                     elevation_range=[0, 1000],
                     pickable=True, extruded=True,
                 ),
+                
             ],
         )
     )
@@ -50,14 +51,15 @@ def filterdata(df, hour_selected):
 
 @st.experimental_memo
 def mpoint(lat, lon):
-    return (np.average(lat), np.average(lon))
+    return (-33, -71.6) #np.average(lat), np.average(lon))
 
 data = load_data()
 
 # LAYING OUT THE TOP SECTION OF THE APP
 
-zoom_level = 12
+zoom_level = 14 
 midpoint = mpoint(data["lat"], data["lon"])
 print('MID:', midpoint)
 hour_selected = 12
+st.write('Proyectos GeoCGR comuna Viña del Mar')
 map(filterdata(data, hour_selected), midpoint[0], midpoint[1], 11)
